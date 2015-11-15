@@ -1,0 +1,1 @@
+cat rosalind_revc.txt | xargs python revc.py $1

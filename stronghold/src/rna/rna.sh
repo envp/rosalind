@@ -1,0 +1,1 @@
+cat rosalind_rna.txt | xargs python rna.py $1

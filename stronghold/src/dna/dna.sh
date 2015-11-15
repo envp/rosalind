@@ -1,0 +1,1 @@
+cat rosalind_dna.txt | xargs python dna.py $1
