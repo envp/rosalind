@@ -1,4 +1,6 @@
 """
+    http://rosalind.info/problems/revc/
+    
     Compute the reverse complement of a DNA string
 
     Given: A DNA string s of length at most 1000 bp.

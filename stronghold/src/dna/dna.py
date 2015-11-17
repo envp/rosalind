@@ -1,4 +1,6 @@
 """
+    http://rosalind.info/problems/dna/
+    
     Count the number of different in a given DNA string
 
     Given: A DNA string s of length at most 1000 nt.

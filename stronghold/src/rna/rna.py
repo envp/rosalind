@@ -1,4 +1,6 @@
 """
+    http://rosalind.info/problems/rna/
+    
     Transcribe a DNA string to a RNA string
 
     Given: A DNA string t having length at most 1000 nt.
