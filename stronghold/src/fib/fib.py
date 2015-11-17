@@ -1,26 +1,29 @@
-class GeneralizedFibonacci(object):
-    """ 
-        Model a generalized fibonacci sequence:
-        F(n) = a(0) + SUM(a(t)*F(n-t), 1, k)
-        
-        Where,
-        * a(t): Sequence coefficients
-        * k: Fan width or divergence of the recurrent sequence
-        
-        Given: Positive integers n ≤ 40 and k ≤ 5.
+# -*- coding: utf-8 -*-
 
-        Return: The total number of rabbit pairs that will be present after
-                n months if we begin with 1 pair and in each generation, 
-                every pair of reproduction-age rabbits produces a litter of 
-                k rabbit pairs (instead of only 1 pair).
-    """
+"""
+    http://rosalind.info/problems/fib/
     
-    def __init__(self, width, coeffts):
-        try:
-            assert width == len(coeffts)
-            self.coefft = coeffts
-            self.width =
-            
-        except AssertionError, e:
-            print "Number of coefficients should match recurrence tree width"
-            print e.args
+    Count the number of rabbit pairs in the nth generation given k pairs
+
+    Given: Positive integers n≤40 and k≤5.
+        
+    Return: The total number of rabbit pairs that will be present after
+            n months if each pair of reproduction-age rabbits produces 
+            a litter of k rabbit pairs in each generation 
+            (instead of only 1 pair).
+"""
+
+def rabbits(n, k):
+    fs = [1, 1]
+    for i in xrange(0, n-2):
+        # Evaluate n - 2 terms as first two are already known
+        fs.append(fs[-1] + k * fs[-2])
+    return fs[-1]
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) < 3:
+        print "Usage: python %s <n> <k>" % sys.argv[0]
+    else:
+        n, k = int(sys.argv[1]), int(sys.argv[2])
+        print rabbits(n, k)
