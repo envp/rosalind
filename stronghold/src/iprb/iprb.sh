@@ -1,0 +1,1 @@
+cat rosalind_iprb.txt | xargs python iprb.py $1
