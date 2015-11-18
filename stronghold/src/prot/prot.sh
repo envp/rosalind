@@ -1,0 +1,1 @@
+cat rosalind_prot.txt | xargs python prot.py $1
