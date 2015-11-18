@@ -1,0 +1,1 @@
+python subs.py rosalind_subs.txt
