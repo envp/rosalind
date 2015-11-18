@@ -99,10 +99,8 @@ CODON_MAP = {
 def protien(rna):
     m1, m2, m3 = rna[0::3], rna[1::3], rna[2::3]
     mRNA = [''.join(v) for v in zip(m1, m2, m3)]
-    prot = ''
-    for t in takewhile(lambda m: m != '*', [CODON_MAP[m] for m in mRNA]):
-        prot += t
-    return prot
+    return ''.join([t for t in takewhile(
+        lambda m: m != '*', [CODON_MAP[m] for m in mRNA])])
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
