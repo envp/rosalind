@@ -1,0 +1,1 @@
+python hamm.py rosalind_hamm.txt
