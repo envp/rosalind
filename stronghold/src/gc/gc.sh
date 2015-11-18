@@ -1,0 +1,1 @@
+python gc.py rosalind_gc.txt
