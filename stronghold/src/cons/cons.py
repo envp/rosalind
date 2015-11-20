@@ -31,7 +31,11 @@ def parse_fasta(string):
             sequences.append('*')
         elif is_sequence:
             sequences.append(is_sequence.group())
+    
+    # The first step here creates a blank list element at the head of list
+    # so zip only works with n - 1 elems and a blank. So we filter list
     sequences = ''.join(sequences).split('*')
+    sequences = [s for s in sequences if s]
     return dict(zip(headers, sequences))
 
 def normalize(dnas):
