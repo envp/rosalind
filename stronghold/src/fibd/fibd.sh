@@ -1,0 +1,1 @@
+cat rosalind_fibd.txt | xargs python fibd.py $1
