@@ -21,9 +21,18 @@ def parse_fasta(string):
     """
     Accepts a FASTA string and returns a dictionary (header -> sequence)
     """
-    headers = FASTA_HEADERS.findall(string)
-    sequences = map(lambda s: s.replace('\n', ''), 
-                    FASTA_DNA_SEQ.findall(string))
+    lines = string.split('\n')
+    headers = []
+    sequences = []
+    for line in lines:
+        is_header = FASTA_HEADERS.match(line)
+        is_sequence = FASTA_DNA_SEQ.match(line)
+        if is_header:
+            headers.append(is_header.group())
+            sequences.append('*')
+        elif is_sequence:
+            sequences.append(is_sequence.group())
+    sequences = ''.join(sequences).split('*')
     return dict(zip(headers, sequences))
 
 def find_key_for_max_value(dictionary):

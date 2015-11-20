@@ -1,0 +1,1 @@
+python cons.py rosalind_cons.txt
