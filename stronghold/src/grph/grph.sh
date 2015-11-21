@@ -1,0 +1,1 @@
+python grph.py rosalind_grph.txt
