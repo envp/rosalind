@@ -1,0 +1,1 @@
+cat rosalind_iev.txt | xargs python iev.py $1
