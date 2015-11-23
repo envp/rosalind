@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
     Find the longest common substring of two DNA strands
 
@@ -6,7 +7,8 @@
     Return: A longest common substring of the collection. (If multiple solutions exist, you may return any single solution.)
 """
 import re
-import itertools
+from itertools import izip
+import sys
 
 
 FASTA_HEADERS = re.compile(">(.+)")
@@ -35,7 +37,33 @@ def parse_fasta(string):
     sequences = [s for s in sequences if s]
     return dict(zip(headers, sequences))
 
+def suffixes(s):
+    """
+    Returns sorted suffix list of a string
+    """
+    length = len(s)
+    suffix_list = [(i, s[i:]) for i in xrange(length)]
+    
+    # Sort by suffix
+    return sorted(suffix_list, key=lambda a: a[1])
+
+def lc_prefix(suffix_list):
+    """
+    Returns the LCP array given a suffix array
+    """
+    suf_array = zip(*suffix_list)[1]
+    lcp = [-1]
+    length = len(suf_array)
+    for i in xrange(1, length):
+        s = suf_array[i - 1]
+        t = suf_array[i]
+        #print "### %s, %s" % (s, t)
+        #print "##", [a == b for a, b in izip(s, t)]
+        prefix_length = sum([a == b for a, b in izip(s, t)])
+        lcp.append(prefix_length)
+    return lcp
 
 def lcs(s1, s2):
-    
-if 
+    pass
+
+print lcs(sys.argv[1], sys.argv[2])
