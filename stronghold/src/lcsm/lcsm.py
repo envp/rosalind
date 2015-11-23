@@ -64,6 +64,12 @@ def lc_prefix(suffix_list):
     return lcp
 
 def lcs(s1, s2):
-    pass
+    s = '$'.join([s1, s2])
+    suffix_array = suffixes(s)
+    lcp = lc_prefix(suffix_array)
+    z = zip(*suffix_array)[1]
+    print z
+    print lcp
+    print z[lcp.index(max(lcp))], z[lcp.index(max(lcp)) + 1]
 
-print lcs(sys.argv[1], sys.argv[2])
+lcs(sys.argv[1], sys.argv[2])
