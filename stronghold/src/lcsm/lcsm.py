@@ -7,8 +7,10 @@
     Return: A longest common substring of the collection. (If multiple solutions exist, you may return any single solution.)
 """
 import re
-from itertools import izip
 import sys
+
+from itertools import izip
+from functools import reduce
 
 
 FASTA_HEADERS = re.compile(">(.+)")
@@ -37,39 +39,33 @@ def parse_fasta(string):
     sequences = [s for s in sequences if s]
     return dict(zip(headers, sequences))
 
-def suffixes(s):
-    """
-    Returns sorted suffix list of a string
-    """
-    length = len(s)
-    suffix_list = [(i, s[i:]) for i in xrange(length)]
-    
-    # Sort by suffix
-    return sorted(suffix_list, key=lambda a: a[1])
-
-def lc_prefix(suffix_list):
-    """
-    Returns the LCP array given a suffix array
-    """
-    suf_array = zip(*suffix_list)[1]
-    lcp = [-1]
-    length = len(suf_array)
-    for i in xrange(1, length):
-        s = suf_array[i - 1]
-        t = suf_array[i]
-        #print "### %s, %s" % (s, t)
-        #print "##", [a == b for a, b in izip(s, t)]
-        prefix_length = sum([a == b for a, b in izip(s, t)])
-        lcp.append(prefix_length)
-    return lcp
-
 def lcs(s1, s2):
-    s = '$'.join([s1, s2])
-    suffix_array = suffixes(s)
-    lcp = lc_prefix(suffix_array)
-    z = zip(*suffix_array)[1]
-    print z
-    print lcp
-    print z[lcp.index(max(lcp))], z[lcp.index(max(lcp)) + 1]
+    """
+    http://en.wikipedia.org/wiki/Longest_common_substring_problem#Pseudocode
+    """
+    L = {}
+    z = 0
+    for i, c1 in enumerate(s1):
+        for j, c2 in enumerate(s2):
+            if c1 == c2:
+                L[(i, j)] = L.get((i - 1, j - 1), 0) + 1
+                if L[(i, j)] > z:
+                    z = L[(i, j)]
+                    ret = s1[i - z + 1:i + 1]
+    return ret
+    
 
-lcs(sys.argv[1], sys.argv[2])
+
+def longest_common_substring(*strings):
+    # LCS(A, B, C, D) = LCS(LCS(A, B), C) or any other permutation
+    # Returns 'a LCS', may not even be the same as the example
+    return reduce(lcs, strings)
+
+if __name__ == "__main__":
+    import sys
+    fname = sys.argv[1]
+    data = open(fname).read()
+    parsed_data = parse_fasta(data)
+    data_iterator = parsed_data.itervalues()
+    lcs = longest_common_substring(*data_iterator)
+    print lcs
